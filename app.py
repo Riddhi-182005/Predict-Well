@@ -71,6 +71,41 @@ label, [data-testid="stWidgetLabel"] p, [data-testid="stWidgetLabel"] label {
   color: var(--ink) !important;
 }
 [data-testid="stForm"] { color: var(--ink); }
+
+/* ---- Inputs: force light background + dark text (fixes invisible values) ---- */
+.stNumberInput input, .stTextInput input {
+  background:#ffffff !important; color:var(--ink) !important;
+  border:1.5px solid var(--border) !important; border-radius:9px !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.stNumberInput input:focus, .stTextInput input:focus {
+  border-color:var(--primary) !important; box-shadow:0 0 0 3px var(--primary-tint) !important; outline:none !important;
+}
+.stSelectbox div[data-baseweb="select"] > div {
+  background:#ffffff !important; color:var(--ink) !important;
+  border:1.5px solid var(--border) !important; border-radius:9px !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.stSelectbox div[data-baseweb="select"] * { color:var(--ink) !important; }
+.stSelectbox div[data-baseweb="select"]:focus-within > div {
+  border-color:var(--primary) !important; box-shadow:0 0 0 3px var(--primary-tint) !important;
+}
+[data-baseweb="popover"] li { color:var(--ink) !important; background:#fff !important; }
+[data-baseweb="popover"] li:hover { background:var(--primary-tint) !important; }
+.stNumberInput button { background:#fff !important; }
+
+/* ---- Micro-interactions ---- */
+.stFormSubmitButton>button{
+  transition: transform 0.12s ease, background 0.15s ease;
+}
+.stFormSubmitButton>button:hover{ transform: translateY(-1px); }
+.stFormSubmitButton>button:active{ transform: translateY(0); }
+
+@keyframes pwFadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.pw-result { animation: pwFadeUp 0.35s ease; }
+
+.stTabs [data-baseweb="tab-list"] { gap:4px; }
+.stTabs [data-baseweb="tab"] { transition: color 0.15s ease; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -119,10 +154,10 @@ st.markdown("""
               font-family:'Sora',sans-serif; font-weight:800; color:#fff; font-size:1.1rem;">P</div>
   <p class="pw-title">PredictWell</p>
 </div>
-<p class="pw-sub">Enter your health details to get an instant risk estimate.</p>
+<p class="pw-sub">Enter your health details to get an instant risk estimate — takes less than a minute.</p>
 """, unsafe_allow_html=True)
 
-tab_diabetes, tab_heart = st.tabs(["Diabetes", "Heart Disease"])
+tab_diabetes, tab_heart = st.tabs(["🍬  Diabetes", "❤️  Heart Disease"])
 
 # ============================================================== DIABETES
 with tab_diabetes:
