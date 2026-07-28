@@ -1,0 +1,5 @@
+# Extra dependencies needed only to RE-RUN the preprocessing/training
+# pipeline locally. Not required to run the deployed Streamlit app
+# (which only needs requirements.txt).
+-r requirements.txt
+pyspark==4.2.0
