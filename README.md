@@ -95,7 +95,6 @@ python src/train_models.py
 ```
 
 
-
 ## Disclaimer
 
 This is an educational/portfolio project. Predictions are not medical
