@@ -85,20 +85,6 @@ predictwell/
 Run `python src/train_models.py` yourself any time to reproduce these
 numbers — the script prints per-model accuracy/precision/recall/F1.
 
-## Run it locally
-
-```bash
-# 1. Clone your repo (after you've pushed it, see below)
-git clone https://github.com/<your-username>/predictwell.git
-cd predictwell
-
-# 2. Install app dependencies
-pip install -r requirements.txt
-
-# 3. Launch the app (models are already trained & committed in models/)
-streamlit run app.py
-```
-
 To re-run the full pipeline from raw data (requires Java + PySpark):
 
 ```bash
@@ -108,29 +94,7 @@ python src/preprocess_heart.py
 python src/train_models.py
 ```
 
-## Push to GitHub
 
-```bash
-cd predictwell
-git init
-git add .
-git commit -m "Initial commit: PredictWell multi-disease prediction system"
-git branch -M main
-git remote add origin https://github.com/<your-username>/predictwell.git
-git push -u origin main
-```
-
-## Deploy a live link (Streamlit Community Cloud — free)
-
-1. Push the project to a **public** GitHub repo (steps above).
-2. Go to **https://share.streamlit.io** and sign in with GitHub.
-3. Click **"New app"**, pick your `predictwell` repo, branch `main`,
-   and set the main file path to `app.py`.
-4. Click **Deploy**. You'll get a live link like
-   `https://<your-app>.streamlit.app` in a couple of minutes.
-5. Add that link to the top of this README and to your resume.
-
-That's it — every future `git push` to `main` will auto-redeploy the app.
 
 ## Disclaimer
 
