@@ -21,91 +21,70 @@ MODELS_DIR = Path("models")
 # ============================================================== STYLE
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root{
-  --bg:#F6F8F9; --ink:#0F2A3D; --muted:#5B6B7C; --border:#E3E8EB;
-  --primary:#0E7C7B; --primary-dark:#0B5D5C; --primary-tint:#E6F3F2;
-  --low:#1E8E5A; --low-bg:#EAF7EF;
-  --mid:#B5741B; --mid-bg:#FBF1E1;
-  --high:#C0392B; --high-bg:#FBEAE8;
+  --bg:#FAFAFA; --ink:#1A1A1A; --muted:#6B7280; --border:#E5E7EB;
+  --primary:#0E7C7B;
+  --low:#1E8E5A; --low-bg:#F0FAF4;
+  --mid:#B5741B; --mid-bg:#FDF6EC;
+  --high:#C0392B; --high-bg:#FDF1F0;
 }
-html, body, [class*="css"] { font-family:'Inter', sans-serif; }
-h1,h2,h3 { font-family:'Sora', sans-serif !important; }
+
+html, body, [class*="css"] { font-family:'Inter', sans-serif !important; }
 .stApp, body, html { background-color: var(--bg) !important; }
-.block-container{ max-width:700px; padding-top:2.2rem; padding-bottom:3rem; }
+.block-container{ max-width:640px; padding-top:3rem; padding-bottom:3rem; }
 
-.pw-title{ font-family:'Sora',sans-serif !important; font-weight:800 !important; font-size:1.9rem !important; color:var(--ink) !important; margin:0 !important; line-height:1.25 !important; }
-.pw-sub{ color:var(--muted) !important; font-size:0.95rem !important; margin-top:4px !important; margin-bottom:0.4rem !important; }
+.pw-title{ font-size:1.5rem !important; font-weight:700 !important; color:var(--ink) !important; margin:0 !important; }
+.pw-sub{ color:var(--muted) !important; font-size:0.92rem !important; margin-top:6px !important; margin-bottom:0 !important; }
 
+/* Result card */
 .pw-result{
-  border-radius:18px; padding:26px 26px; margin-top:6px; border:1px solid;
-  display:flex; align-items:center; gap:22px;
+  border-radius:12px; padding:22px 24px; margin-top:8px; border:1px solid;
+  display:flex; align-items:center; gap:18px;
 }
-.low{ background:var(--low-bg); border-color:rgba(30,142,90,0.25); }
-.mid{ background:var(--mid-bg); border-color:rgba(181,116,27,0.25); }
-.high{ background:var(--high-bg); border-color:rgba(192,57,43,0.25); }
+.low{ background:var(--low-bg); border-color:#D6EFDF; }
+.mid{ background:var(--mid-bg); border-color:#F3E1C4; }
+.high{ background:var(--high-bg); border-color:#F3D4D1; }
 
-.pw-gauge{ width:104px; height:104px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
-.pw-gauge-inner{ width:80px; height:80px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Sora',sans-serif; font-weight:700; font-size:1.15rem; }
+.pw-gauge{ width:76px; height:76px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+.pw-gauge-inner{ width:58px; height:58px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1rem; }
 
-.pw-result-label{ font-family:'Sora',sans-serif; font-weight:700; font-size:1.25rem; }
-.pw-result-desc{ font-size:0.88rem; color:var(--muted); margin-top:4px; max-width:380px; line-height:1.4;}
+.pw-result-label{ font-weight:600; font-size:1.05rem; }
+.pw-result-desc{ font-size:0.86rem; color:var(--muted); margin-top:3px; line-height:1.4;}
 .low .pw-result-label{ color:var(--low); } .low .pw-gauge-inner{ color:var(--low); }
 .mid .pw-result-label{ color:var(--mid); } .mid .pw-gauge-inner{ color:var(--mid); }
 .high .pw-result-label{ color:var(--high);} .high .pw-gauge-inner{ color:var(--high);}
 
-.stTabs [data-baseweb="tab"] { font-family:'Sora',sans-serif; font-weight:600; }
-div[data-testid="stForm"] { border:1px solid var(--border); border-radius:16px; padding:22px 22px 8px 22px; background:#fff; }
-.stButton>button[kind="primary"], .stFormSubmitButton>button{
-  background:var(--primary); border-color:var(--primary); font-weight:600; border-radius:10px;
+/* Form */
+div[data-testid="stForm"] {
+  border:1px solid var(--border); border-radius:12px;
+  padding:24px 24px 10px 24px; background:#fff;
 }
-.stButton>button[kind="primary"]:hover, .stFormSubmitButton>button:hover{
-  background:var(--primary-dark); border-color:var(--primary-dark);
-}
+label, [data-testid="stWidgetLabel"] p { color:var(--ink) !important; font-size:0.88rem !important; font-weight:500 !important; }
 
-label, [data-testid="stWidgetLabel"] p, [data-testid="stWidgetLabel"] label {
-  color: var(--ink) !important;
-}
-.stNumberInput input, .stSelectbox div[data-baseweb="select"] * {
-  color: var(--ink) !important;
-}
-[data-testid="stForm"] { color: var(--ink); }
-
-/* ---- Inputs: force light background + dark text (fixes invisible values) ---- */
 .stNumberInput input, .stTextInput input {
-  background:#ffffff !important; color:var(--ink) !important;
-  border:1.5px solid var(--border) !important; border-radius:9px !important;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background:#fff !important; color:var(--ink) !important;
+  border:1px solid var(--border) !important; border-radius:8px !important;
 }
 .stNumberInput input:focus, .stTextInput input:focus {
-  border-color:var(--primary) !important; box-shadow:0 0 0 3px var(--primary-tint) !important; outline:none !important;
+  border-color:var(--primary) !important; box-shadow:none !important; outline:none !important;
 }
 .stSelectbox div[data-baseweb="select"] > div {
-  background:#ffffff !important; color:var(--ink) !important;
-  border:1.5px solid var(--border) !important; border-radius:9px !important;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background:#fff !important; color:var(--ink) !important;
+  border:1px solid var(--border) !important; border-radius:8px !important;
 }
 .stSelectbox div[data-baseweb="select"] * { color:var(--ink) !important; }
-.stSelectbox div[data-baseweb="select"]:focus-within > div {
-  border-color:var(--primary) !important; box-shadow:0 0 0 3px var(--primary-tint) !important;
-}
 [data-baseweb="popover"] li { color:var(--ink) !important; background:#fff !important; }
-[data-baseweb="popover"] li:hover { background:var(--primary-tint) !important; }
-.stNumberInput button { background:#fff !important; }
+[data-baseweb="popover"] li:hover { background:#F3F4F6 !important; }
 
-/* ---- Micro-interactions ---- */
 .stFormSubmitButton>button{
-  transition: transform 0.12s ease, background 0.15s ease;
+  background:var(--primary) !important; border-color:var(--primary) !important;
+  font-weight:600 !important; border-radius:8px !important; box-shadow:none !important;
 }
-.stFormSubmitButton>button:hover{ transform: translateY(-1px); }
-.stFormSubmitButton>button:active{ transform: translateY(0); }
+.stFormSubmitButton>button:hover{ background:#0B5D5C !important; border-color:#0B5D5C !important; }
 
-@keyframes pwFadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-.pw-result { animation: pwFadeUp 0.35s ease; }
-
-.stTabs [data-baseweb="tab-list"] { gap:4px; }
-.stTabs [data-baseweb="tab"] { transition: color 0.15s ease; }
+.stTabs [data-baseweb="tab"] { font-weight:500 !important; font-size:0.92rem !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -123,17 +102,17 @@ def render_result(prob):
     pct = round(prob * 100)
     if prob < 0.33:
         band, label, msg, color = "low", "Low Risk", \
-            "Your inputs don't show strong risk indicators. Keep up regular checkups.", "var(--low)"
+            "Your inputs don't show strong risk indicators. Keep up regular checkups.", "#1E8E5A"
     elif prob < 0.66:
         band, label, msg, color = "mid", "Moderate Risk", \
-            "Some risk indicators are present. Consider discussing these results with a doctor.", "var(--mid)"
+            "Some risk indicators are present. Consider discussing these results with a doctor.", "#B5741B"
     else:
         band, label, msg, color = "high", "High Risk", \
-            "Several risk indicators are present. We recommend consulting a healthcare provider soon.", "var(--high)"
+            "Several risk indicators are present. We recommend consulting a healthcare provider soon.", "#C0392B"
 
     st.markdown(f"""
     <div class="pw-result {band}">
-        <div class="pw-gauge" style="background:conic-gradient({color} {pct}%, #E7ECEE {pct}% 100%);">
+        <div class="pw-gauge" style="background:conic-gradient({color} {pct}%, #E5E7EB {pct}% 100%);">
             <div class="pw-gauge-inner">{pct}%</div>
         </div>
         <div>
@@ -147,17 +126,12 @@ def render_result(prob):
 
 # ============================================================== HEADER
 st.markdown("""
-<div style="display:flex; align-items:center; gap:12px; margin-bottom:2px;">
-  <div style="width:42px; height:42px; border-radius:11px; flex-shrink:0;
-              background:linear-gradient(145deg, var(--primary), var(--primary-dark));
-              display:flex; align-items:center; justify-content:center;
-              font-family:'Sora',sans-serif; font-weight:800; color:#fff; font-size:1.1rem;">P</div>
-  <p class="pw-title">PredictWell</p>
-</div>
-<p class="pw-sub">Enter your health details to get an instant risk estimate — takes less than a minute.</p>
+<p class="pw-title">PredictWell</p>
+<p class="pw-sub">Enter your health details to get an instant risk estimate.</p>
 """, unsafe_allow_html=True)
+st.write("")
 
-tab_diabetes, tab_heart = st.tabs(["🍬  Diabetes", "❤️  Heart Disease"])
+tab_diabetes, tab_heart = st.tabs(["Diabetes", "Heart Disease"])
 
 # ============================================================== DIABETES
 with tab_diabetes:
