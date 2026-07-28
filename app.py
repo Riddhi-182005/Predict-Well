@@ -24,7 +24,7 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root{
-  --ink:#0F2A3D; --muted:#5B6B7C; --border:#E3E8EB;
+  --bg:#F6F8F9; --ink:#0F2A3D; --muted:#5B6B7C; --border:#E3E8EB;
   --primary:#0E7C7B; --primary-dark:#0B5D5C; --primary-tint:#E6F3F2;
   --low:#1E8E5A; --low-bg:#EAF7EF;
   --mid:#B5741B; --mid-bg:#FBF1E1;
@@ -32,10 +32,11 @@ st.markdown("""
 }
 html, body, [class*="css"] { font-family:'Inter', sans-serif; }
 h1,h2,h3 { font-family:'Sora', sans-serif !important; }
+.stApp, body, html { background-color: var(--bg) !important; }
 .block-container{ max-width:700px; padding-top:2.2rem; padding-bottom:3rem; }
 
-.pw-title{ font-family:'Sora',sans-serif; font-weight:800; font-size:1.7rem; color:var(--ink); margin:0; }
-.pw-sub{ color:var(--muted); font-size:0.95rem; margin-top:2px; margin-bottom:0.4rem;}
+.pw-title{ font-family:'Sora',sans-serif !important; font-weight:800 !important; font-size:1.9rem !important; color:var(--ink) !important; margin:0 !important; line-height:1.25 !important; }
+.pw-sub{ color:var(--muted) !important; font-size:0.95rem !important; margin-top:4px !important; margin-bottom:0.4rem !important; }
 
 .pw-result{
   border-radius:18px; padding:26px 26px; margin-top:6px; border:1px solid;
@@ -62,6 +63,14 @@ div[data-testid="stForm"] { border:1px solid var(--border); border-radius:16px; 
 .stButton>button[kind="primary"]:hover, .stFormSubmitButton>button:hover{
   background:var(--primary-dark); border-color:var(--primary-dark);
 }
+
+label, [data-testid="stWidgetLabel"] p, [data-testid="stWidgetLabel"] label {
+  color: var(--ink) !important;
+}
+.stNumberInput input, .stSelectbox div[data-baseweb="select"] * {
+  color: var(--ink) !important;
+}
+[data-testid="stForm"] { color: var(--ink); }
 </style>
 """, unsafe_allow_html=True)
 
@@ -103,7 +112,13 @@ def render_result(prob):
 
 # ============================================================== HEADER
 st.markdown("""
-<p class="pw-title">🩺 PredictWell</p>
+<div style="display:flex; align-items:center; gap:12px; margin-bottom:2px;">
+  <div style="width:42px; height:42px; border-radius:11px; flex-shrink:0;
+              background:linear-gradient(145deg, var(--primary), var(--primary-dark));
+              display:flex; align-items:center; justify-content:center;
+              font-family:'Sora',sans-serif; font-weight:800; color:#fff; font-size:1.1rem;">P</div>
+  <p class="pw-title">PredictWell</p>
+</div>
 <p class="pw-sub">Enter your health details to get an instant risk estimate.</p>
 """, unsafe_allow_html=True)
 
